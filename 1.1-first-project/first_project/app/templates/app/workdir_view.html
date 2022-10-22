@@ -4,9 +4,11 @@
     <meta charset="UTF-8">
     <title>Файлы в рабочей директории</title>
     <H1>Список файлов рабочей директории</H1>
+    <ul>
     {% for files in workdir_files %}
-        <H2>{{ files }}</H2>
+        <li>{{ files }}</li>
     {% endfor %}
+    </ul>
     <a href="{% url 'home'%}"><button>Вернуться на главную страницу</button>></a>
 </head>
 <body>
