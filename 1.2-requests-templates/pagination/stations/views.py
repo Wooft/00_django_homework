@@ -32,6 +32,4 @@ def bus_stations(request):
     context = {
         'page': page
     }
-    for elements in page:
-        print(elements['name'])
     return render(request, 'stations/index.html', context)

@@ -18,7 +18,17 @@ DATA = {
     },
     # можете добавить свои рецепты ;)
 }
-
+def index(request):
+    return render(request, 'calculator/index.html')
+def omlet(request, servings):
+    print(request.path.strip('/'))
+    for key, item in DATA.items():
+        if key == request.path.strip('/'):
+            recipe = item
+    context = {
+        'recipe': recipe
+    }
+    return render(request=request, template_name='calculator/index.html', context=context)
 # Напишите ваш обработчик. Используйте DATA как источник данных
 # Результат - render(request, 'calculator/index.html', context)
 # В качестве контекста должен быть передан словарь с рецептом:
