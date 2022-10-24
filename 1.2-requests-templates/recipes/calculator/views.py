@@ -20,11 +20,16 @@ DATA = {
 }
 def index(request):
     return render(request, 'calculator/index.html')
-def omlet(request, servings):
-    print(request.path.strip('/'))
-    for key, item in DATA.items():
-        if key == request.path.strip('/'):
-            recipe = item
+def omlet(request):
+    #Проверяем - если параметр указан, то множитель меняем на введенное значение, если нет - то множитель равен 1
+    if request.GET.get('servings') == None:
+        quan = 1
+    else:
+        quan = int(request.GET.get('servings'))
+    recipe = {}
+    recipe.update(DATA[request.path.strip('/')])
+    for names, amount in recipe.items():
+        recipe[names] = amount * quan
     context = {
         'recipe': recipe
     }

@@ -20,8 +20,8 @@ from calculator.views import index, omlet
 
 urlpatterns = [
     path('', index, name='home'),
-    path('omlet/<servings>/', omlet, name='omlet'),
-    path('buter/<servings>/', omlet, name='omlet'),
-    path('pasta/<servings>/', omlet, name='omlet'),
+    path('omlet/', omlet, name='omlet'),
+    path('buter/', omlet, name='omlet'),
+    path('pasta/', omlet, name='omlet'),
     # здесь зарегистрируйте вашу view-функцию
 ]
