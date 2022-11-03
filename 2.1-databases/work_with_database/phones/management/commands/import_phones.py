@@ -1,5 +1,4 @@
 import csv
-from slugify import slugify
 from django.core.management.base import BaseCommand
 from phones.models import Phone
 
@@ -14,7 +13,6 @@ class Command(BaseCommand):
             phones = list(csv.DictReader(file, delimiter=';'))
 
         for phone in phones:
-            print(phone)
             new = Phone(
                 name=phone['name'],
                 price=phone['price'],
