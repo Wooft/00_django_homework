@@ -8,7 +8,7 @@
             <h1><a href="/books">Каталог</a></h1>
         </div>
         <div class="row">
-            {% for book in books %}
+            {% for book in content.0 %}
                 <div class="book col-md-4">
                     <h2>{{book.name}}</h2>
                     <p>Автор: {{book.author}}</p>
@@ -16,5 +16,13 @@
                 </div>
             {% endfor %}
         </div>
+
+        {% if content.1 != None %}
+            <p><a href="{% url 'books' content.1%}">{{content.1}}</a></p>
+        {% endif %}
+
+        {% if content.2 != None %}
+            <p><a href="{% url 'books' content.2%}">{{content.2}}</a></p>
+        {% endif %}
     </div>
 {% endblock %}
