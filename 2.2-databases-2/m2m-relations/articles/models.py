@@ -4,7 +4,7 @@ from django.db import models
 class Article(models.Model):
     title = models.CharField(max_length=256, verbose_name='Название')
     text = models.TextField(verbose_name='Текст')
-    published_at = models.DateTimeField(verbose_name='Дата публикации', auto_now=True)
+    published_at = models.DateTimeField(verbose_name='Дата публикации', auto_now=False)
     image = models.ImageField(null=True, blank=True, verbose_name='Изображение', )
 
     class Meta:
@@ -18,5 +18,11 @@ class Article(models.Model):
 class Tags(models.Model):
     name = models.CharField(max_length=20, verbose_name='Имя тега')
 
+
+# Связь между тегом и статьей
 class Scope(models.Model):
-    pass
+    article = models.ForeignKey(Article, on_delete=models.CASCADE, related_name='articles_scope')
+    tag = models.ForeignKey(Tags, on_delete=models.CASCADE, related_name='scope')
+    is_main = models.BooleanField()
+
+
