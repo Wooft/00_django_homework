@@ -18,10 +18,14 @@ class Article(models.Model):
 class Tag(models.Model):
     name = models.CharField(max_length=20, verbose_name='Имя тега')
 
+    def __str__(self):
+        return self.name
+
 # Связь между тегом и статьей
 class Scope(models.Model):
     article = models.ForeignKey(Article, on_delete=models.CASCADE, related_name='scopes')
     tag = models.ForeignKey(Tag, on_delete=models.CASCADE, related_name='scopes')
     is_main = models.BooleanField()
+
 
 
