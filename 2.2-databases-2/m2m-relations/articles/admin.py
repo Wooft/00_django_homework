@@ -11,7 +11,7 @@ class ScopeInlineFormset(BaseInlineFormSet):
 
             is_main = form.cleaned_data
             print(is_main)
-            raise ValidationError('Тут всегда ошибка')
+        raise ValidationError('Тут всегда ошибка')
 
             # вызовом исключения ValidationError можно указать админке о наличие ошибки
             # таким образом объект не будет сохранен,
