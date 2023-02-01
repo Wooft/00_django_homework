@@ -9,6 +9,7 @@ class AdvertisementStatusChoices(models.TextChoices):
 
     OPEN = "OPEN", "Открыто"
     CLOSED = "CLOSED", "Закрыто"
+    DRAFT = "DRAFT", "Черновик"
 
 class Advertisement(models.Model):
     """Объявление."""
@@ -28,4 +29,22 @@ class Advertisement(models.Model):
     updated_at = models.DateTimeField(
         auto_now=True
     )
+    admin = models.BooleanField(default=False)
 
+class IsAdmin(models.Model):
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+    )
+    isadmin = models.BooleanField(default=False)
+
+#Дополнительная модель со списком администраторов
+class Favorite(models.Model):
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+    )
+    favorite = models.ForeignKey(
+        Advertisement,
+        on_delete=models.CASCADE,
+    )

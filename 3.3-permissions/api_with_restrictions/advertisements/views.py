@@ -1,13 +1,11 @@
-from django_filters import DateFromToRangeFilter
-from django_filters.rest_framework import DjangoFilterBackend, FilterSet
-from rest_framework.filters import SearchFilter
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
-from django_filters import rest_framework as filters
 
 from advertisements.filters import AdvertisementFilter
-from advertisements.models import Advertisement
-from advertisements.permissions import IsOwnerOrReadonly
+from advertisements.models import Advertisement, IsAdmin
+from advertisements.permissions import IsOwnerOrReadonly, AdminPermissions
 from advertisements.serializers import AdvertisementSerializer
 
 
@@ -26,6 +24,11 @@ class AdvertisementViewSet(ModelViewSet):
     def get_permissions(self):
         """Получение прав для действий."""
         if self.action in ["create", "update", "partial_update", "destroy"]:
-            return [IsAuthenticated(), IsOwnerOrReadonly()]
+            return [IsAuthenticated(), IsOwnerOrReadonly(), AdminPermissions()]
         return []
-
+    def list(self, request, *args, **kwargs):
+        queryset = Advertisement.objects.all()
+        serializer = AdvertisementSerializer(queryset, many=True)
+        admins = IsAdmin.objects.get(user=request.user).isadmin
+        print(admins)
+        return Response(serializer.data)
