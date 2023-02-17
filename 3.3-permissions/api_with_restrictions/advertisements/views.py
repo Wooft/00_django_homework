@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 
 from advertisements.filters import AdvertisementFilter
-from advertisements.models import Advertisement, IsAdmin
+from advertisements.models import Advertisement
 from advertisements.permissions import IsOwnerOrReadonly
 from advertisements.serializers import AdvertisementSerializer
 
