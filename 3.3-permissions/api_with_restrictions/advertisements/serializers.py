@@ -24,6 +24,9 @@ class AdvertisementSerializer(serializers.ModelSerializer):
         model = Advertisement
         fields = ('id', 'title', 'description', 'creator',
                   'status', 'created_at', )
+
+    def get(self):
+        return
     def create(self, validated_data):
         """Метод для создания"""
         # Простановка значения поля создатель по-умолчанию.

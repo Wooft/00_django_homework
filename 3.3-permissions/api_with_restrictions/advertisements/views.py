@@ -5,7 +5,7 @@ from rest_framework.viewsets import ModelViewSet
 
 from advertisements.filters import AdvertisementFilter
 from advertisements.models import Advertisement, IsAdmin
-from advertisements.permissions import IsOwnerOrReadonly, AdminPermissions
+from advertisements.permissions import IsOwnerOrReadonly
 from advertisements.serializers import AdvertisementSerializer
 
 
@@ -24,11 +24,10 @@ class AdvertisementViewSet(ModelViewSet):
     def get_permissions(self):
         """Получение прав для действий."""
         if self.action in ["create", "update", "partial_update", "destroy"]:
-            return [IsAuthenticated(), IsOwnerOrReadonly(), AdminPermissions()]
+            return [IsAuthenticated(), IsOwnerOrReadonly()]
         return []
     def list(self, request, *args, **kwargs):
         queryset = Advertisement.objects.all()
         serializer = AdvertisementSerializer(queryset, many=True)
-        admins = IsAdmin.objects.get(user=request.user).isadmin
-        print(admins)
         return Response(serializer.data)
+
