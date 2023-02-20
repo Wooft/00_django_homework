@@ -10,8 +10,7 @@ class AdvertisementFilter(FilterSet):
     # TODO: задайте требуемые фильтры
     created_at = DateFromToRangeFilter(field_name='created_at')
     status = CharFilter(field_name='status')
-    #Не понял как добавить фильтрацию по пользователю, прошу подсказать
-    creator = filters.ModelChoiceFilter(queryset=User.objects.all())
+    creator = filters.AllValuesMultipleFilter()
     class Meta:
         model = Advertisement
         fields = ['created_at', 'status', 'creator']

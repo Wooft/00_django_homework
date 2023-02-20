@@ -1,11 +1,9 @@
-from rest_framework.authtoken.admin import User
 from rest_framework.permissions import BasePermission
 
 
 class IsOwnerOrReadonly(BasePermission):
     def has_object_permission(self, request, view, obj):
         if request.method == 'GET':
-            print(request)
             return True
         if request.method == 'DELETE':
             #Проверка на то, что пользователь явялется администратором
@@ -19,3 +17,9 @@ class IsOwnerOrReadonly(BasePermission):
             else:
                 return request.user == obj.creator
         return request.user == obj.creator
+
+class IsDraft(BasePermission):
+    def has_object_permission(self, request, view, obj):
+        if request.method == 'GET':
+            if obj.status == 'DRAFT':
+                return request.user == obj.creator
