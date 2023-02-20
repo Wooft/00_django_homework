@@ -30,21 +30,3 @@ class Advertisement(models.Model):
         auto_now=True
     )
     admin = models.BooleanField(default=False)
-
-class IsAdmin(models.Model):
-    user = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
-        on_delete=models.CASCADE,
-    )
-    isadmin = models.BooleanField(default=False)
-
-#Дополнительная модель со списком администраторов
-class Favorite(models.Model):
-    user = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
-        on_delete=models.CASCADE,
-    )
-    favorite = models.ForeignKey(
-        Advertisement,
-        on_delete=models.CASCADE,
-    )

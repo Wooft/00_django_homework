@@ -1,4 +1,5 @@
 from django_filters import rest_framework as filters, DateFromToRangeFilter, FilterSet, CharFilter, ModelChoiceFilter
+from rest_framework.authtoken.admin import User
 
 from advertisements.models import Advertisement
 
@@ -9,7 +10,8 @@ class AdvertisementFilter(FilterSet):
     # TODO: задайте требуемые фильтры
     created_at = DateFromToRangeFilter(field_name='created_at')
     status = CharFilter(field_name='status')
-    creator = ModelChoiceFilter(field_name='creator')
+    #Не понял как добавить фильтрацию по пользователю, прошу подсказать
+    creator = filters.ModelChoiceFilter(queryset=User.objects.all())
     class Meta:
         model = Advertisement
         fields = ['created_at', 'status', 'creator']

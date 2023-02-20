@@ -1,20 +1,20 @@
+from rest_framework.authtoken.admin import User
 from rest_framework.permissions import BasePermission
-
-from advertisements.models import IsAdmin
 
 
 class IsOwnerOrReadonly(BasePermission):
     def has_object_permission(self, request, view, obj):
         if request.method == 'GET':
+            print(request)
             return True
         if request.method == 'DELETE':
             #Проверка на то, что пользователь явялется администратором
-            if IsAdmin.objects.get(user=request.user).isadmin == True:
+            if request.user.is_staff:
                 return True
             else:
                 return request.user == obj.creator
         if request.method == 'PATCH':
-            if IsAdmin.objects.get(user=request.user).isadmin == True:
+            if request.user.is_staff:
                 return True
             else:
                 return request.user == obj.creator
