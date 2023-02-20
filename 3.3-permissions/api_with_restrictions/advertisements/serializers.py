@@ -25,8 +25,6 @@ class AdvertisementSerializer(serializers.ModelSerializer):
         fields = ('id', 'title', 'description', 'creator',
                   'status', 'created_at', )
 
-    def get(self):
-        return
     def create(self, validated_data):
         """Метод для создания"""
         # Простановка значения поля создатель по-умолчанию.
@@ -48,3 +46,4 @@ class AdvertisementSerializer(serializers.ModelSerializer):
         else:
             if Advertisement.objects.filter(creator=self.context["request"].user, status="OPEN").count() >= 10:
                 raise ValidationError('Может быть не более 10 открытых объявлений, закройте хотя бы одно созданное, чтобы создать новое.')
+
